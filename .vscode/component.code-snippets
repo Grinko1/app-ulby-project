@@ -1,0 +1,21 @@
+{
+  "${TM_FILENAME_BASE} Component": {
+    "prefix": "reactComponent",
+    "body": [
+      "import style from './${TM_FILENAME_BASE}.module.scss';",
+      "import { classNames } from 'shared/lib/classNames/classNames';",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "    className?: string;",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE} = ({ className }: ${TM_FILENAME_BASE}Props) => {",
+      "  return (",
+      "    <div className={classNames(style.${TM_FILENAME_BASE}, {}, [className])}>",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "Custom React Component"
+  }
+}
