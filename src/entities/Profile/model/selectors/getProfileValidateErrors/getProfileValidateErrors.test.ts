@@ -8,7 +8,7 @@ describe('getProfileValidateErrors.test', () => {
    
     const state: DeepPartial<StateSchema> = {
       profile: {
-        validateError:[ValidateProfileError.INCORRECT_AGE]
+        validateErrors:[ValidateProfileError.INCORRECT_AGE]
       },
     };
 
