@@ -1,9 +1,16 @@
 .app_purpul_theme {
-  --bg-color: #F4F4FB;
-  --inverted-bg-color: #5E69EE;
-  --primary-color: #39AFEA;
+  --bg-color: #f4f4fb;
+  --inverted-bg-color: #5e69ee;
+  --primary-color: #39afea;
   --secondary-color: #0449e0;
-  --inverted-primary-color:#39AFEA;
-  --inverted-secondary-color: #39AFEA;
+  --inverted-primary-color: #07058b;
+  --inverted-secondary-color: #39afea;
+
+  // skeleton
+
+  --skeleton-color: #fff;
+  --skeleton-shadow: #aaa3da;
+
+  // code
+  --code-bg: #fff;
 }
-// 5E69EE
