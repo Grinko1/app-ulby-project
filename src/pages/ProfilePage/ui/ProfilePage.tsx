@@ -24,6 +24,8 @@ import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useParams } from 'react-router-dom';
 
 const reducers: ReducersList = {
   profile: profileReducer,
@@ -36,26 +38,26 @@ interface ProfilePageProps {
 const ProfilePage = ({ className }: ProfilePageProps) => {
   const { t } = useTranslation('profile');
   const dispatch = useAppDispatch();
+  const { id } = useParams();
 
-  useEffect(() => {
-    if(__PROJECT__ !== 'storybook'){
-       dispatch(fetchProfileData());
+  useInitialEffect(() => {
+    if (id) {
+      dispatch(fetchProfileData(id));
     }
-   
-  }, [dispatch]);
+  });
 
   const formData = useSelector(getProfileForm);
   const isLoading = useSelector(getProfileIsLoading);
   const error = useSelector(getProfileError);
   const readonly = useSelector(getProfileReadonly);
-  const validateErrors = useSelector(getProfileValidateErrors)
+  const validateErrors = useSelector(getProfileValidateErrors);
   const validateErrorTranslates = {
-    [ValidateProfileError.SERVER_ERROR] :t('Ошибка сервера'),
-    [ValidateProfileError.INCORRECT_AGE] :t('Некорректный возвраст'),
-    [ValidateProfileError.INCORRECT_COUNTRY] :t('Не указана страна'),
-    [ValidateProfileError.INCORRECT_USER_DATA] :t('Имя и фамилия обязательны'),
-    [ValidateProfileError.NO_DATA] :t('Заполните все поля'),
-  }
+    [ValidateProfileError.SERVER_ERROR]: t('Ошибка сервера'),
+    [ValidateProfileError.INCORRECT_AGE]: t('Некорректный возвраст'),
+    [ValidateProfileError.INCORRECT_COUNTRY]: t('Не указана страна'),
+    [ValidateProfileError.INCORRECT_USER_DATA]: t('Имя и фамилия обязательны'),
+    [ValidateProfileError.NO_DATA]: t('Заполните все поля'),
+  };
 
   const onChangeFirstname = useCallback(
     (value?: string) => {
@@ -99,21 +101,21 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
       dispatch(profileActions.updateProfile({ currency: value }));
     },
     [dispatch],
-    
-
   );
-    const onChangeCountry = useCallback(
+  const onChangeCountry = useCallback(
     (value: Country) => {
       dispatch(profileActions.updateProfile({ country: value }));
     },
-    [dispatch],)
+    [dispatch],
+  );
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
       <div className={classNames('', {}, [className])}>
         <ProfilePageHeader />
-        {validateErrors?.length && validateErrors.map(error => (
-          <Text theme={TextTheme.ERROR} text={validateErrorTranslates[error]} key={error} />
-        ))}
+        {validateErrors?.length &&
+          validateErrors.map((error) => (
+            <Text theme={TextTheme.ERROR} text={validateErrorTranslates[error]} key={error} />
+          ))}
         <ProfileCard
           data={formData}
           isLoading={isLoading}
@@ -127,7 +129,6 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
           onChangeCurrency={onChangeCurrency}
           onChangeCountry={onChangeCountry}
           readonly={readonly}
-
         />
       </div>
     </DynamicModuleLoader>
