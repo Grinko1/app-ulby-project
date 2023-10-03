@@ -87,8 +87,8 @@
   "comments": [
     {
       "id": "1",
-      "body": "some comment",
-      "postId": "1"
+      "text": "some comment",
+      "userId": "1"
     },
      {
       "id": "2",
@@ -101,20 +101,27 @@
       "text": "some comment 3",
       "articleId": "1",
       "userId": "1"
+    },
+    {
+      "id": "4",
+      "text": "some comment 4",
+      "articleId": "1",
+      "userId": "2"
     }
   ],
   "users": [
     {
       "id": "1",
       "username": "admin",
-      "password": "123"
+      "password": "123",
+      "avatar": "https://xakep.ru/wp-content/uploads/2018/05/171485/KuroiSH-hacker.jpg"
     },
     {
       "id": "2",
       "username": "user",
       "password": "123",
       "role": "USER",
-      "avatar": "https://xakep.ru/wp-content/uploads/2018/05/171485/KuroiSH-hacker.jpg"
+      "avatar": "https://teknotower.com/wp-content/uploads/2020/11/js.png"
     }
   ],
   "profile": {
