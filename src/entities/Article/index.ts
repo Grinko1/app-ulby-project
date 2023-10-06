@@ -1,10 +1,16 @@
-export { ArticleList } from "./ui/ArticleList/ArticleList";
+export { ArticleViewSelector } from './ui/ArticleViewSelector/ArticleViewSelector';
 
-export { getArticleDetailsData,getArticleDetailsIsLoading,getArticleDetailsError } from "./model/selectors/articleDetails";
+export { ArticleList } from './ui/ArticleList/ArticleList';
 
-export type { Article , ArticleView} from "./model/types/article";
+export {
+  getArticleDetailsData,
+  getArticleDetailsIsLoading,
+  getArticleDetailsError,
+} from './model/selectors/articleDetails';
 
-export { ArticleDetails } from "./ui/ArticleDetails/ArticleDetails";
+export type { Article } from './model/types/article';
+export { ArticleView } from './model/types/article';
 
-export type {ArticleDetailsSchema} from './model/types/ArticleDetailsSchema'
+export { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
 
+export type { ArticleDetailsSchema } from './model/types/ArticleDetailsSchema';

@@ -73,7 +73,6 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
         <ArticleDetails id={id} />
         <Text
           title={t('Комментарии')}
-          // title='Комментарии'
           className={style.commentTitle}
         />
         <AddCommentForm onSentComment={onSentComment} />
