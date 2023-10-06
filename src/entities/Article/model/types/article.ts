@@ -1,4 +1,7 @@
+import { User } from '../../../User/model/types/user';
+
 export enum ArticleBlockType {
+
   CODE = 'CODE',
   IMAGE = 'IMAGE',
   TEXT = 'TEXT',
@@ -42,6 +45,7 @@ export interface Article {
   img: string;
   views: number;
   createdAt: string;
+  user:User;
   type: ArticleType[];
   blocks: ArticleBlock[];
 }

@@ -3,7 +3,7 @@ import style from './ArticleDetailsPage.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { ArticleDetails } from 'entities/Article';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CommentList } from 'entities/Comment';
 import { Text } from 'shared/ui/Text/Text';
 import {
@@ -25,6 +25,8 @@ import { fetchCommentByArticleId } from 'pages/ArticleDetailPage/model/services/
 import { AddCommentForm } from 'features/addNewComment';
 import { addCommentForArticle } from 'pages/ArticleDetailPage/model/services/addCommentForArticle/addCommentForArticle';
 import { getCommentFormText } from 'features/addNewComment/model/selectors/getCommentFormState';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
 const reducers: ReducersList = {
   articleDetailsComment: articleDetailsCommentReducer,
@@ -41,13 +43,18 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   const commentsIsLoading = useSelector(getArticleDetailsCommentsIsLoading);
   const commentsError = useSelector(getArticleDetailsCommentsError);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useInitialEffect(() => {
     dispatch(fetchCommentByArticleId(id));
   });
 
-  const onSentComment = useCallback((text:string) => {
+  const onSentComment = useCallback((text: string) => {
     dispatch(addCommentForArticle(text));
+  }, []);
+
+  const onBackToList = useCallback(() => {
+    navigate(RoutePath.articles);
   }, []);
 
   if (!id) {
@@ -60,8 +67,15 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
       <div className={classNames(style.ArticleDetailsPage, {}, [className])}>
+        <Button onClick={onBackToList} theme={ButtonTheme.OUTLINE}>
+          {t('Назад к списку')}
+        </Button>
         <ArticleDetails id={id} />
-        <Text title={t('Комментарии')} className={style.commentTitle} />
+        <Text
+          title={t('Комментарии')}
+          // title='Комментарии'
+          className={style.commentTitle}
+        />
         <AddCommentForm onSentComment={onSentComment} />
         <CommentList className={style.comment} comments={comments} isLoading={commentsIsLoading} />
       </div>

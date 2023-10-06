@@ -7,9 +7,16 @@
 .SMALL {
     display: flex;
     flex-wrap: wrap;
+    gap:15px;
+    align-items: center;
+    justify-content: center;
 
     .card {
         margin-right: 30px;
         margin-bottom: 30px;
     }
 }
+// .ArticleList{
+//     display: flex;
+//     flex-wrap: wrap;
+// }

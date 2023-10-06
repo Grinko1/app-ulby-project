@@ -16,6 +16,11 @@ const article =
       "img": "https://teknotower.com/wp-content/uploads/2020/11/js.png",
       "views": 1022,
       "createdAt": "26.02.2022",
+      "user":{
+        "id":"1",
+        "username":"jsdnf",
+        "avatar":"https://pic.rutubelist.ru/user/3b/27/3b2758ad5492a76b578f7ee072e4e894.jpg"
+      },
       "type": [
         "IT","IT","IT","IT","IT","IT","IT"
       ],
@@ -84,7 +89,11 @@ const article =
     const {t} = useTranslation('article')
   return (
     <div className={classNames(style.ArticlePage, {}, [className])}>
-        <ArticleList articles={[article]}/>
+        <ArticleList articles={
+          new Array(16).fill(0).map((item,index) => ({
+            ...article, id:String(index)
+          }))
+        }/>
     </div>
   );
 };
