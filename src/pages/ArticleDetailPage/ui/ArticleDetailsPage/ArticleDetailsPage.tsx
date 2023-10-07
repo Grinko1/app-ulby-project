@@ -27,6 +27,7 @@ import { addCommentForArticle } from 'pages/ArticleDetailPage/model/services/add
 import { getCommentFormText } from 'features/addNewComment/model/selectors/getCommentFormState';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Page } from 'shared/ui/Page/Page';
 
 const reducers: ReducersList = {
   articleDetailsComment: articleDetailsCommentReducer,
@@ -66,7 +67,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   }
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-      <div className={classNames(style.ArticleDetailsPage, {}, [className])}>
+      <Page className={classNames(style.ArticleDetailsPage, {}, [className])}>
         <Button onClick={onBackToList} theme={ButtonTheme.OUTLINE}>
           {t('Назад к списку')}
         </Button>
@@ -77,7 +78,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
         />
         <AddCommentForm onSentComment={onSentComment} />
         <CommentList className={style.comment} comments={comments} isLoading={commentsIsLoading} />
-      </div>
+      </Page>
     </DynamicModuleLoader>
   );
 };

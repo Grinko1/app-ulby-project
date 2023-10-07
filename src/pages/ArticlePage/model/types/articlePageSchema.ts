@@ -1,11 +1,13 @@
-import { EntityState } from "@reduxjs/toolkit";
-import { ArticleView } from "entities/Article";
-import { Article } from "entities/Comment/model/types/article";
-
+import { EntityState } from '@reduxjs/toolkit';
+import { ArticleView } from 'entities/Article';
+import { Article } from 'entities/Comment/model/types/article';
 
 export interface ArticlePageSchema extends EntityState<Article> {
-    isLoading?:boolean
-    error?:string
+  isLoading?: boolean;
+  error?: string;
 
-    view: ArticleView
+  view: ArticleView;
+  page: number;
+  limit?: number;
+  hasMore: boolean;
 }
