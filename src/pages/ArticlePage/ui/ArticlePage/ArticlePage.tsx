@@ -18,7 +18,7 @@ import {
   getArticlePageIsLoading,
   getArticlePageView,
 } from 'pages/ArticlePage/model/selectors/getArticlesPage';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 import { fetchNextArticlePage } from 'pages/ArticlePage/model/services/fetchNextArticlePage/fetchNextArticlePage';
 import { initArticlesPage } from 'pages/ArticlePage/model/services/initArticlesPage/initArticlesPage';
 
