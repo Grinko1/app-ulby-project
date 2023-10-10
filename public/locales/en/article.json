@@ -1,5 +1,12 @@
 {
     "Статья не найдена":"Article was'n found",
     "Комментарии":"Comments",
-    "Назад к списку": "Back to the list"
+    "Назад к списку": "Back to the list",
+    "возрастанию": "increase",
+    "убыванию": "descrease",
+    "дате создания": "created",
+    "названию": "title",
+    "просмотрам": "views",
+    "Сортировать По": "Sort by",
+    "По": "By"
 }

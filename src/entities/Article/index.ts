@@ -1,3 +1,5 @@
+export { ArticleSortSelector } from './ui/ArticleSortSelector/ArticleSortSelector';
+
 export { ArticleViewSelector } from './ui/ArticleViewSelector/ArticleViewSelector';
 
 export { ArticleList } from './ui/ArticleList/ArticleList';
@@ -9,7 +11,7 @@ export {
 } from './model/selectors/articleDetails';
 
 export type { Article } from './model/types/article';
-export { ArticleView } from './model/types/article';
+export { ArticleView, ArticleSortField } from './model/types/article';
 
 export { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
 

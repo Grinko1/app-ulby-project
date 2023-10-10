@@ -6,6 +6,7 @@ export function useThrottle(callback: (...args:any[]) => void, delay: number) {
     if (!throttleRef.current) {
       callback(...args);
       throttleRef.current = true;
+      
       setTimeout(() => {
         throttleRef.current = false;
       }, delay);
