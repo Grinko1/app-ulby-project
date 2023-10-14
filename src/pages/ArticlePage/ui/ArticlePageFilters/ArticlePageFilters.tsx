@@ -5,6 +5,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
   ArticleSortField,
   ArticleSortSelector,
+  ArticleTypeTabs,
   ArticleView,
   ArticleViewSelector,
 } from 'entities/Article';
@@ -12,6 +13,7 @@ import { articlePageActions } from 'pages/ArticlePage/model/slices/ArticlePageSl
 import { useSelector } from 'react-redux';
 import {
   getArticleOrder,
+  getArticlePageType,
   getArticlePageView,
   getArticleSearch,
   getArticleSort,
@@ -38,6 +40,7 @@ export const ArticlePageFilters = memo(({ className }: ArticlePageFiltersProps) 
   const order = useSelector(getArticleOrder);
   const search = useSelector(getArticleSearch);
   const view = useSelector(getArticlePageView);
+  const type = useSelector(getArticlePageType)
 
   const fetchData = useCallback(() => {
     dispatch(fetchArticlesList({ replace: true }));
@@ -78,27 +81,16 @@ export const ArticlePageFilters = memo(({ className }: ArticlePageFiltersProps) 
     [view, fetchData],
   );
 
-  const tabs = useMemo<TabItem[]>(() => {
+    const onChangeType = useCallback(
+    (value: ArticleType) => {
+      dispatch(articlePageActions.setType(value));
+      dispatch(articlePageActions.setPage(1));
+      debouncedFetchData();
+    },
+    [view, fetchData],
+  );
 
-    return [
-      {
-        value: ArticleType.ECONOMICS,
-        content: t('Экономика'),
-      },
-      {
-        value: ArticleType.IT,
-        content: t('Айти'),
-      },
-      {
-        value: ArticleType.SCIENCE,
-        content: t('Наука'),
-      },
-      {
-        value: ArticleType.ALL,
-        content: t('Все'),
-      },
-    ];
-  }, []);
+
 
   return (
     <div className={classNames(style.ArticlePageFilters, {}, [className])}>
@@ -115,7 +107,7 @@ export const ArticlePageFilters = memo(({ className }: ArticlePageFiltersProps) 
       <Card className={style.search}>
         <Input placeholder={t('Поиск')} value={search} onChange={onChangeSearch} />
       </Card>
-      <Tabs tabs={tabs} value={ArticleType.ALL} onTabClick={()=>{}} />
+      <ArticleTypeTabs onChangeType={onChangeType} value={type} className={style.tabs}/>
     </div>
   );
 });

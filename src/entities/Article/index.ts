@@ -1,3 +1,5 @@
+export { ArticleTypeTabs } from './ui/ArticleTypeTabs/ArticleTypeTabs';
+
 export { ArticleSortSelector } from './ui/ArticleSortSelector/ArticleSortSelector';
 
 export { ArticleViewSelector } from './ui/ArticleViewSelector/ArticleViewSelector';
@@ -11,8 +13,9 @@ export {
 } from './model/selectors/articleDetails';
 
 export type { Article } from './model/types/article';
-export { ArticleView, ArticleSortField } from './model/types/article';
+export { ArticleView, ArticleSortField, ArticleType } from './model/types/article';
 
 export { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';
 
 export type { ArticleDetailsSchema } from './model/types/ArticleDetailsSchema';
+

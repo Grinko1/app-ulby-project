@@ -1,11 +1,11 @@
-import { createSlice, createEntityAdapter, EntityState, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, PayloadAction } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
 import { Article } from 'entities/Comment/model/types/article';
 import { ArticlePageSchema } from '../types/articlePageSchema';
-import { ArticleView } from 'entities/Article';
+import { ArticleSortField, ArticleType, ArticleView } from 'entities/Article';
 import { fetchArticlesList } from '../services/fetchArticlesList/fetchArticlesList';
 import { ARTICLE_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { ArticleSortField } from 'entities/Article/model/types/article';
+
 import { SortOrder } from 'shared/types/index';
 
 const articlesAdapter = createEntityAdapter<Article>({
@@ -28,6 +28,7 @@ const articlePageSlice = createSlice({
     sort: ArticleSortField.TITLE,
     order: 'asc',
     search: '',
+    type: ArticleType.ALL,
 
     ids: [],
     entities: {},
@@ -56,6 +57,9 @@ const articlePageSlice = createSlice({
     },
     setSort: (state, action: PayloadAction<ArticleSortField>) => {
       state.sort = action.payload;
+    },
+    setType: (state, action: PayloadAction<ArticleType>) => {
+      state.type = action.payload;
     },
   },
   extraReducers(builder) {

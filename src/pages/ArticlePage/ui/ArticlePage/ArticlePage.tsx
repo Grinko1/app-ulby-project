@@ -37,9 +37,9 @@ const ArticlePage = ({ className }: ArticlePageProps) => {
   const dispatch = useAppDispatch();
   const isLoading = useSelector(getArticlePageIsLoading);
 
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
-  console.log(searchParams)
+
   const onLoadNextPart = useCallback(() => {
     if(!isLoading)
     dispatch(fetchNextArticlePage());

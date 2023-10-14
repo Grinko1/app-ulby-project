@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Article } from 'entities/Article';
+import { Article, ArticleType } from 'entities/Article';
 import {
   getArticleOrder,
   getArticlePageLimit,
   getArticlePageNum,
+  getArticlePageType,
   getArticleSearch,
   getArticleSort,
 } from '../../selectors/getArticlesPage';
@@ -25,9 +26,10 @@ export const fetchArticlesList = createAsyncThunk<Article[], fetchArticlesListPr
     const search = getArticleSearch(getState());
     const order = getArticleOrder(getState());
     const page = getArticlePageNum(getState());
+    const type = getArticlePageType(getState())
 
     try {
-     addQuaryParams({sort, order, search})
+     addQuaryParams({sort, order, search, type})
       const response = await extra.api.get<Article[]>(`/articles`, {
         params: {
           _expand: 'user',
@@ -35,6 +37,8 @@ export const fetchArticlesList = createAsyncThunk<Article[], fetchArticlesListPr
           _page: page,
           _sort: sort,
           _order: order,
+          type: type ===  ArticleType.ALL ? undefined : type,
+
           q: search,
         },
       });

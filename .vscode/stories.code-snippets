@@ -1,0 +1,24 @@
+{
+  "React stories": {
+    "prefix": "react-stories",
+    "body": [
+      "import React from 'react';",
+      "import { ComponentMeta, ComponentStory } from '@storybook/react';",
+      "",
+      "import ${TM_FILENAME_BASE} from './${TM_FILENAME_BASE}';",
+      "import {$1} from '../../model/types/article';",
+      "",
+      "export default {",
+      "    title: 'entities/${TM_FILENAME_BASE}',",
+      "    component: ${TM_FILENAME_BASE},",
+      "    argTypes: {",
+      "        backgroundColor: { control: 'color' },",
+      "    },",
+      "} as ComponentMeta<typeof $1>;",
+      "",
+      "const Template: ComponentStory<typeof $1> = (args) => <${TM_FILENAME_BASE} {...args} />;",
+      "$0"
+    ],
+    "description": "Create a React stories"
+  }
+}
