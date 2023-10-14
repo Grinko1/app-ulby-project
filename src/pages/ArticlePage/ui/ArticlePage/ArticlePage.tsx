@@ -1,7 +1,7 @@
 import style from './ArticlePage.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { ArticleList, ArticleView, ArticleViewSelector } from 'entities/Article';
+import { ArticleList} from 'entities/Article';
 import {
   DynamicModuleLoader,
   ReducersList,
