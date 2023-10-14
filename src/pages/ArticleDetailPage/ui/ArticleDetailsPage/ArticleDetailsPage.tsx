@@ -2,18 +2,15 @@ import { useTranslation } from 'react-i18next';
 import style from './ArticleDetailsPage.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { ArticleDetails } from 'entities/Article';
+import { ArticleDetails, ArticleList } from 'entities/Article';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CommentList } from 'entities/Comment';
-import { Text } from 'shared/ui/Text/Text';
+import { Text, TextSize } from 'shared/ui/Text/Text';
 import {
   DynamicModuleLoader,
   ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import {
-  articleDetailsCommentReducer,
-  getArticleComments,
-} from 'pages/ArticleDetailPage/model/slices/ArticleDetailsCommentSlice';
+import { getArticleComments } from 'pages/ArticleDetailPage/model/slices/ArticleDetailsCommentSlice';
 import { useSelector } from 'react-redux';
 import {
   getArticleDetailsCommentsError,
@@ -24,13 +21,19 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchCommentByArticleId } from 'pages/ArticleDetailPage/model/services/fetchCommentByArticleId/fetchCommentByArticleId';
 import { AddCommentForm } from 'features/addNewComment';
 import { addCommentForArticle } from 'pages/ArticleDetailPage/model/services/addCommentForArticle/addCommentForArticle';
-import { getCommentFormText } from 'features/addNewComment/model/selectors/getCommentFormState';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Page } from 'widgets/Page/Page';
+import { getArticleRecommendations } from 'pages/ArticleDetailPage/model/slices/ArticleDetailsRecommendSlice';
+import {
+  getArticleDetailsRecommendError,
+  getArticleDetailsRecommendIsLoading,
+} from 'pages/ArticleDetailPage/model/selectors/recommend';
+import { fetchArticleRecommendation } from 'pages/ArticleDetailPage/model/services/fetchArticleRecommendation/fetchArticleRecommendation';
+import { articleDetailsPageReducer } from 'pages/ArticleDetailPage/model/slices';
 
 const reducers: ReducersList = {
-  articleDetailsComment: articleDetailsCommentReducer,
+  articleDetailsPage: articleDetailsPageReducer,
 };
 
 interface ArticleDetailsPageProps {
@@ -40,14 +43,22 @@ interface ArticleDetailsPageProps {
 const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   const { t } = useTranslation('article');
   const { id } = useParams<{ id: string }>();
+  //comments
   const comments = useSelector(getArticleComments.selectAll);
   const commentsIsLoading = useSelector(getArticleDetailsCommentsIsLoading);
   const commentsError = useSelector(getArticleDetailsCommentsError);
 
+  //recommendations
+  const recommendations = useSelector(getArticleRecommendations.selectAll);
+  const recommendationsIsLoading = useSelector(getArticleDetailsRecommendIsLoading);
+  const recommendationsError = useSelector(getArticleDetailsRecommendError);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   useInitialEffect(() => {
     dispatch(fetchCommentByArticleId(id));
+    dispatch(fetchArticleRecommendation());
   });
 
   const onSentComment = useCallback((text: string) => {
@@ -72,10 +83,14 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
           {t('Назад к списку')}
         </Button>
         <ArticleDetails id={id} />
-        <Text
-          title={t('Комментарии')}
-          className={style.commentTitle}
+        <Text title={t('Рекоммендуем')} className={style.recommendTitle} size={TextSize.L} />
+        <ArticleList
+          target='_blank'
+          articles={recommendations}
+          isLoading={recommendationsIsLoading}
+          className={style.recommendations}
         />
+        <Text title={t('Комментарии')} className={style.commentTitle} size={TextSize.L} />
         <AddCommentForm onSentComment={onSentComment} />
         <CommentList className={style.comment} comments={comments} isLoading={commentsIsLoading} />
       </Page>

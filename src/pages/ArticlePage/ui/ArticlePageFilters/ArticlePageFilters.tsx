@@ -85,7 +85,7 @@ export const ArticlePageFilters = memo(({ className }: ArticlePageFiltersProps) 
     (value: ArticleType) => {
       dispatch(articlePageActions.setType(value));
       dispatch(articlePageActions.setPage(1));
-      debouncedFetchData();
+      fetchData();
     },
     [view, fetchData],
   );
