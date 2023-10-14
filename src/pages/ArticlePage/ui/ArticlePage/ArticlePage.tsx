@@ -7,15 +7,13 @@ import {
   ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
-  articlePageActions,
   articlePageReducer,
   getArticles,
-} from '../../model/slices/ArticlePageSlice';
+} from 'pages/ArticlePage/model/slices/ArticlePageSlice';
 import { useInitialEffect } from '../../../../shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import {
-  getArticlePageHasMore,
   getArticlePageIsLoading,
   getArticlePageView,
 } from 'pages/ArticlePage/model/selectors/getArticlesPage';
