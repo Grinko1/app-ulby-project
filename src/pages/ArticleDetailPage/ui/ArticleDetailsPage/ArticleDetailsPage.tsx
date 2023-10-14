@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import {
   getArticleDetailsCommentsError,
   getArticleDetailsCommentsIsLoading,
-} from 'pages/ArticleDetailPage/model/selectors/comments/comments';
+} from 'pages/ArticleDetailPage/model/selectors/comments';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchCommentByArticleId } from 'pages/ArticleDetailPage/model/services/fetchCommentByArticleId/fetchCommentByArticleId';
@@ -31,6 +31,7 @@ import {
 } from 'pages/ArticleDetailPage/model/selectors/recommend';
 import { fetchArticleRecommendation } from 'pages/ArticleDetailPage/model/services/fetchArticleRecommendation/fetchArticleRecommendation';
 import { articleDetailsPageReducer } from 'pages/ArticleDetailPage/model/slices';
+import { ArticleDetailsPageHeader } from './ArticleDetailsPageHeader/ArticleDetailsPageHeader';
 
 const reducers: ReducersList = {
   articleDetailsPage: articleDetailsPageReducer,
@@ -53,7 +54,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   const recommendationsIsLoading = useSelector(getArticleDetailsRecommendIsLoading);
   const recommendationsError = useSelector(getArticleDetailsRecommendError);
 
-  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   useInitialEffect(() => {
@@ -65,9 +66,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
     dispatch(addCommentForArticle(text));
   }, []);
 
-  const onBackToList = useCallback(() => {
-    navigate(RoutePath.articles);
-  }, []);
+
 
   if (!id) {
     return (
@@ -79,9 +78,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
       <Page className={classNames(style.ArticleDetailsPage, {}, [className])}>
-        <Button onClick={onBackToList} theme={ButtonTheme.OUTLINE}>
-          {t('Назад к списку')}
-        </Button>
+     <ArticleDetailsPageHeader/>
         <ArticleDetails id={id} />
         <Text title={t('Рекоммендуем')} className={style.recommendTitle} size={TextSize.L} />
         <ArticleList
